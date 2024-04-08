@@ -1,8 +1,7 @@
 import boto3
 from pprint import pprint
 import roro_print.rprint as rprint
-
-PARAMETER_STORE_TEMPORARY = "/config/temporary/serial-number"
+import roro_config.config as config
 
 def get_user_info(username: str, json_config_file: dict, pretty_print: bool):
     print("[*] -> Recuperando informacion del usuario : {0}".format(username))
@@ -28,7 +27,7 @@ def get_user_mfa(username: str, json_config_file: dict):
     else:
         print("[*] -> Recuperando dispositivo mfa temporal. No asociado a ningun usuario")
         ssm_client = session.client("ssm")
-        response = ssm_client.get_parameter(Name="{0}/{1}".format(PARAMETER_STORE_TEMPORARY, username), WithDecryption=True)
+        response = ssm_client.get_parameter(Name="{0}/{1}".format(config.PARAMETER_STORE_TEMPORARY, username), WithDecryption=True)
         print("--- Arn Serial Number : {}".format(response['Parameter']['Value']))
    
 def get_name_roles(username: str, json_config_file: dict):

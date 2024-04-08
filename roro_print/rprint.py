@@ -1,3 +1,5 @@
+import sys
+
 def print_valid_roles_user(roles: dict):
     print("[*] -> Roles disponibles para tu perfil")
     for role in roles['Roles']:
@@ -12,3 +14,18 @@ def print_user_info(user_info: dict):
     print("[*] Tags : ")
     for tag in user_info['Tags']:
         print("-- Key : {0}, Value = {1}".format(tag['Key'], tag['Value']))    
+
+def print_user_invalid_flags():
+    print("[*] Recuperando informacion del usuario")
+    print("!!! Debe especificar flags validos para recuperar informacion del usuario")
+    sys.exit(0)
+
+def print_invalid_configure_flags():
+    print("[*] Configurando profile y tags para entorno de trabajo")
+    print("!!! Utilice los flags para introducir los datos necesarios ")
+    sys.exit(0)
+    
+def print_session_denied():
+    print("[*] Comprobando sesion temporal")
+    print("!!! Sesion caducada. Vuelva a solicitar una sesion valida")
+    sys.exit(0)

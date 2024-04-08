@@ -3,7 +3,12 @@ import os
 import sys
 
 DIR_CONFIG = "C:\\Users\\{0}\\.roro".format(os.environ['USERNAME'])
+TMP_CONFIG = "tmp"
 FILE_CONFIG = "config.json"
+
+PARAMETER_STORE_TEMPORARY = "/config/temporary/serial-number"
+LOG_GROUP_USER_MASTER = "create-user-master-log-group"
+LOG_STREAM_USER_MASTER = "create-user-master-log-stream"
 
 def load_config():
     
@@ -36,6 +41,7 @@ def prepare_config(action: str):
             sys.exit(0)
         
         os.mkdir(DIR_CONFIG)
+        os.mkdir("{0}\\{1}".format(DIR_CONFIG, TMP_CONFIG))
         create_config()
         json_config_file = load_config()
     

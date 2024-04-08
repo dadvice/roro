@@ -25,7 +25,12 @@ def print_invalid_configure_flags():
     print("!!! Utilice los flags para introducir los datos necesarios ")
     sys.exit(0)
     
-def print_session_denied():
+def print_denied_session():
     print("[*] Comprobando sesion temporal")
     print("!!! Sesion caducada. Vuelva a solicitar una sesion valida")
+    sys.exit(0)
+
+def print_invalid_user():
+    print("[*] Creando claves de acesso")
+    print("!!! Es necesario indicar un usuario")
     sys.exit(0)

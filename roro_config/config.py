@@ -28,6 +28,11 @@ def save_config(json_config_file: dict):
       
     with open("{0}\\{1}".format(DIR_CONFIG, FILE_CONFIG), "w") as outfile:
         outfile.write(json.dumps(json_config_file, cls=json.JSONEncoder))
+
+def save_access_key(json_access_key: dict, username: str):
+      
+     with open("{0}\\{1}\\{2}-{3}".format(DIR_CONFIG, TMP_CONFIG, "AccessKey", username), "w") as outfile:
+        outfile.write(json.dumps(json_access_key, cls=json.JSONEncoder))
         
 def prepare_config(action: str):
     

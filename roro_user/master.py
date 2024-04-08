@@ -52,6 +52,20 @@ def create_mfa_device(json_config_file: dict, username: str):
     
     return response['VirtualMFADevice']['SerialNumber']
 
+def create_access_key(json_config_file: dict, username: str):
+    
+    print("[*] Creando claves de acceso para el usuario {0}".format(username))
+    iam_client = user_common.get_client_iam_session(json_config_file)
+    response = iam_client.create_access_key(UserName=username)
+    
+    json = dict()
+    json['UserName'] = response['AccessKey']['UserName']
+    json['AccessKeyId'] = response["AccessKey"]["AccessKeyId"]
+    json['SecretAccessKey'] = response["AccessKey"]["SecretAccessKey"]
+    
+    config.save_access_key(json, username)
+    print("--- Fichero creado en la carpeta temporal.")
+    
 def put_paramter_serial_number(json_config_file: dict, username: str, serial_number: str):
     ssm_client = user_common.get_client_ssm_session(json_config_file)
     ssm_client.put_parameter(Name="{0}/{1}".format(config.PARAMETER_STORE_TEMPORARY, username), Value=serial_number,Type="SecureString",Tier="Standard")

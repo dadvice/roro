@@ -30,7 +30,7 @@ def get_client_iam_session(json_config_file: dict):
                                aws_secret_access_key=json_config_file["sts"]["secret_access_key"],
                                aws_session_token=json_config_file["sts"]["session_token"]).client("iam")
     except botocore.exceptions.ClientError:
-        rprint.print_session_denied()
+        rprint.print_denied_session()
 
 def get_client_ssm_session(json_config_file: dict):
     try:
@@ -38,4 +38,4 @@ def get_client_ssm_session(json_config_file: dict):
                                aws_secret_access_key=json_config_file["sts"]["secret_access_key"],
                                aws_session_token=json_config_file["sts"]["session_token"]).client("ssm")
     except botocore.exceptions.ClientError:
-        rprint.print_session_denied()
+         rprint.print_denied_session()

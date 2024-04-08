@@ -51,18 +51,22 @@ def set(options: dict, json_config_file: dict):
         user_basic.enable_mfa_device(options.get("username"), options.get("serial-number"), options.get("code1"), options.get("code2"), json_config_file)
 
 def create(options: dict, json_config_file: dict):
-    
+        
     if options.get("resource") == "user":
         if options.get("username") == None or options.get("tags") == None:
-            rprint.print_user_invalid_flags()
-            
+            rprint.print_user_invalid_flags()    
         user_master.create_user(json_config_file, options.get("username"), options.get("tags"))
         
+    if options.get("resource") == "access-key":
+        if options.get("username") == None:
+            rprint.print_invalid_user()
+        user_master.create_access_key(options.get("username"))
+    
 def help_parser_args():
     
     parser = argparse.ArgumentParser(prog='roro')
     parser.add_argument("action", type=str, nargs='?', help="Realizamos acciones sobre objetos del sistema y AWS", choices=['create', 'get', 'configure', 'set'])
-    parser.add_argument("resource", type=str, nargs='?', help="Recuperar informacion", choices=['session', 'user', 'user-mfa', 'roles', 'profile', 'tags'])
+    parser.add_argument("resource", type=str, nargs='?', help="Recuperar informacion", choices=['session', 'user', 'user-mfa', 'roles', 'profile', 'tags', 'access-key'])
     parser.add_argument("--username", "-u", dest="username", help="Nombre de usuario", required=False)
     parser.add_argument("--tags", "-t", metavar="Key=a,Value=b;Key=c,Value=d", dest="tags", help="Tags para el usuario", required = False)
     parser.add_argument("--serial-number", "-sn", dest="serial-number", help="MFA Device", required=False)
